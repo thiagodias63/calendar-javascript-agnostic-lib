@@ -6,7 +6,7 @@ export class Calendar2 {
   fullOtherWeeks: number[] = [];
   splitedOtherWeeks: Array<number[]> = [];
 
-  constructor(input?: { month: number }) {
+  constructor(input?: { day?: number; month: number; year?: number }) {
     const newDate: Date | any = new Date();
     // 8.Should be possible to go to next month
     if (input?.month) newDate.setMonth(input.month);
@@ -14,6 +14,9 @@ export class Calendar2 {
     this.currentMonth = newDate.getMonth();
     // 2.The current month ever start on day 1. But what day in the week is the day 1 of this month?
     newDate.setDate(1);
+    // 10.Should be possible to assign a date to start (day, month, year)
+    if (input?.day) newDate.setDate(input.day);
+    if (input?.year) newDate.setFullYear(input.year);
     this.startAtDayOfWeek = newDate.getDay();
     // 3.If first day is greater than 0: What is the last day of the last month, so we can subtract that number to complete the first week.
     let lastDayOfLastMonth = this.lastDayOfLastMonth;

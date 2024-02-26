@@ -17,3 +17,4 @@
    > Ex: [25,26,27,28,29,1,2]
 8. Should be possible to go to next month
 9. Should be possible to go to previous month
+10. Should be possible to assign a date to start (day, month, year)
