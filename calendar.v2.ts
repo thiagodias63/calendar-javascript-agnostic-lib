@@ -9,7 +9,8 @@ export class Calendar2 {
   constructor(input?: { day?: number; month: number; year?: number }) {
     const newDate: Date | any = new Date();
     // 8.Should be possible to go to next month
-    if (input?.month) newDate.setMonth(input.month);
+    if (input && typeof input.month === "number" && input.month >= 0)
+      newDate.setMonth(input.month);
     // 1.Start with current month equal to the actual current month
     this.currentMonth = newDate.getMonth();
     // 2.The current month ever start on day 1. But what day in the week is the day 1 of this month?
@@ -84,7 +85,7 @@ export class Calendar2 {
 
   // 8. Should be possible to go to next month
   public goToNextMonth(): Calendar2 {
-    const nextMonth = this.currentMonth <= 11 ? this.currentMonth + 1 : 1;
+    const nextMonth = this.currentMonth < 11 ? this.currentMonth + 1 : 0;
     return new Calendar2({ month: nextMonth });
   }
 
