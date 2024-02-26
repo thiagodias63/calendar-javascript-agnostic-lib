@@ -1,5 +1,8 @@
 import { expect, describe, beforeAll, test, beforeEach } from "vitest";
 import { Calendar2 } from "./calendar.v2";
+import { Day } from "./models/day";
+import { weekdays } from "./constants/weekdays";
+import { weekdaysAbreviations } from "./constants/weekdays-abreviations";
 
 export const calendar2Test = (title: string, cb?: any) => {
   describe(title, () => {
@@ -9,7 +12,7 @@ export const calendar2Test = (title: string, cb?: any) => {
       if (!!cb) cb(calendar2);
     });
 
-    test("1.Start with current month equal to the actual current month", () => {
+    test("The current month is a valid month", () => {
       expect(calendar2.currentMonth).toBeGreaterThanOrEqual(0);
       expect(calendar2.currentMonth).toBeLessThanOrEqual(11);
     });
@@ -47,8 +50,21 @@ export const calendar2Test = (title: string, cb?: any) => {
           .length
       ).toEqual(7);
     });
+
+    test(`11. The days of month must be convert to a Object-value`, () => {
+      const firstDay = calendar2.firstWeek[0];
+      const lastDay =
+        calendar2.splitedOtherWeeks[calendar2.splitedOtherWeeks.length - 1][6];
+      expect(firstDay).toBeInstanceOf(Day);
+      expect(lastDay).toBeInstanceOf(Day);
+      expect(weekdays.includes(firstDay.weekday));
+      expect(weekdaysAbreviations.includes(firstDay.weekday));
+      expect(weekdays.includes(lastDay.weekday));
+      expect(weekdaysAbreviations.includes(lastDay.weekday));
+    });
   });
 };
+// 1.Start with current month equal to the actual current month
 calendar2Test("Calendar v2, starts with the current date");
 
 // 8.Should be possible to go to next month.
@@ -67,6 +83,7 @@ calendar2Test(
     }
   }
 );
+
 // 10.Should be possible to assign a date to start (day, month, year)
 calendar2Test("Calendar v2, going to specific date", (calendar2: Calendar2) => {
   calendar2 = new Calendar2({ month: 0, day: 1, year: 2024 });
