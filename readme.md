@@ -16,3 +16,4 @@
 7. On the last array, check if contains 7 records. If it doesn't add with the next days of the next month.
    > Ex: [25,26,27,28,29,1,2]
 8. Should be possible to go to next month
+9. Should be possible to go to previous month

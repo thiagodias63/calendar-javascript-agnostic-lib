@@ -84,4 +84,10 @@ export class Calendar2 {
     const nextMonth = this.currentMonth <= 11 ? this.currentMonth + 1 : 1;
     return new Calendar2({ month: nextMonth });
   }
+
+  // 9. Should be possible to go to previous month
+  public goToPreviousMonth(): Calendar2 {
+    const previousMonth = this.currentMonth > 0 ? this.currentMonth - 1 : 11;
+    return new Calendar2({ month: previousMonth });
+  }
 }
