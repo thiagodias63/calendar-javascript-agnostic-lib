@@ -111,7 +111,7 @@ var Calendar2 = class _Calendar2 {
       dayOfWeek++;
     }
     let i = 0;
-    for (let start = this.fullOtherWeeks[0].value; start < this.lastDayOfMonth; start += 7) {
+    for (let start = this.fullOtherWeeks[0].value; start < this.lastDayOfMonth + 1; start += 7) {
       this.splitedOtherWeeks.push(this.fullOtherWeeks.slice(i, i + 7));
       i += 7;
     }

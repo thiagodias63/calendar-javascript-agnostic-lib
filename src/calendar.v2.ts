@@ -106,12 +106,12 @@ export class Calendar2 {
     }
     partialNewDate.setMonth(partialLastMonth + 1);
     partialNewDate.setDate(0);
-    return Number(partialNewDate.toLocaleDateString().split("/")[0]);
+    return Number(partialNewDate.getDate());
   }
 
   private fetchLastDayOfMonth(fullYear: number, month: number): number {
     const partialNewDate = new Date(fullYear, month + 1, 0);
-    return Number(partialNewDate.toLocaleDateString().split("/")[0]);
+    return Number(partialNewDate.getDate());
   }
 
   // 8. Should be possible to go to next month
