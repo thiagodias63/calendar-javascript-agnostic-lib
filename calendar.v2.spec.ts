@@ -1,15 +1,12 @@
 import { expect, describe, beforeAll, test, beforeEach } from "vitest";
 import { Calendar2 } from "./calendar.v2";
 
-let calendar2Test = (cb) => {
-  describe("Calendar v2, Documentation Driven Development", () => {
-    let calendar2: Calendar2;
-    beforeAll(() => {
-      calendar2 = new Calendar2();
-    });
+export const calendar2Test = (title: string, cb?: any) => {
+  describe(title, () => {
+    let calendar2: Calendar2 = new Calendar2();
 
     beforeEach(() => {
-      cb(calendar2);
+      if (!!cb) cb(calendar2);
     });
 
     test("1.Start with current month equal to the actual current month", () => {
@@ -52,81 +49,25 @@ let calendar2Test = (cb) => {
     });
   });
 };
-calendar2Test(() => {});
+calendar2Test("Calendar v2, starts with the current date");
 
 // 8.Should be possible to go to next month.
-calendar2Test((calendar2) => {
-  for (let i = 0; i < 11; i++) {
+calendar2Test("Calendar v2, going to next month", (calendar2: Calendar2) => {
+  for (let i = 0; i < 14; i++) {
     calendar2 = calendar2.goToNextMonth();
   }
 });
-//   // Ex: Mar 2024 start on a Friday (5/6).
-//   expect(calendar2NextMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
-//   expect(calendar2NextMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
-//   expect(calendar2NextMonth.firstWeek.length).toEqual(7);
-//   expect(calendar2NextMonth.fullOtherWeeks.length).toEqual(
-//     calendar2NextMonth.lastDayOfMonth -
-//       (7 - calendar2NextMonth.startAtDayOfWeek)
-//   );
-//   expect(calendar2NextMonth.splitedOtherWeeks.length).toBeGreaterThanOrEqual(
-//     Math.round(calendar2NextMonth.fullOtherWeeks.length / 7)
-//   );
-//   expect(
-//     calendar2NextMonth.splitedOtherWeeks[
-//       calendar2NextMonth.splitedOtherWeeks.length - 1
-//     ].length
-//   ).toEqual(7);
-//   calendar2NextMonth = calendar2NextMonth.goToNextMonth();
-// });
 
 //9.Should be possible to go to previous month.
-calendar2Test((calendar2) => {
-  for (let i = 0; i < 11; i++) {
-    calendar2 = calendar2.goToPreviousMonth();
+calendar2Test(
+  "Calendar v2, going to previous month",
+  (calendar2: Calendar2) => {
+    for (let i = 0; i < 14; i++) {
+      calendar2 = calendar2.goToPreviousMonth();
+    }
   }
-});
-//   let calendar2PreviusMonth = calendar2.goToPreviousMonth();
-//   for (let i = 0; i < 11; i++) {
-//     // Ex: Jan 2024 start on a Monday (1/6).
-//     expect(calendar2PreviusMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
-//     expect(calendar2PreviusMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
-//     expect(calendar2PreviusMonth.firstWeek.length).toEqual(7);
-//     expect(calendar2PreviusMonth.fullOtherWeeks.length).toEqual(
-//       calendar2PreviusMonth.lastDayOfMonth -
-//         (7 - calendar2PreviusMonth.startAtDayOfWeek)
-//     );
-//     expect(
-//       calendar2PreviusMonth.splitedOtherWeeks.length
-//     ).toBeGreaterThanOrEqual(
-//       Math.round(calendar2PreviusMonth.fullOtherWeeks.length / 7)
-//     );
-//     expect(
-//       calendar2PreviusMonth.splitedOtherWeeks[
-//         calendar2PreviusMonth.splitedOtherWeeks.length - 1
-//       ].length
-//     ).toEqual(7);
-//     calendar2PreviusMonth = calendar2PreviusMonth.goToPreviousMonth();
-//   }
-// });
-
-// test(`10.Should be possible to assign a date to start (day, month, year)`, () => {
-calendar2Test((calendar2) => {
+);
+// 10.Should be possible to assign a date to start (day, month, year)
+calendar2Test("Calendar v2, going to specific date", (calendar2: Calendar2) => {
   calendar2 = new Calendar2({ month: 0, day: 1, year: 2024 });
 });
-//   let calendar2SetDate = new Calendar2({ month: 0, day: 1, year: 2024 });
-//   expect(calendar2SetDate.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
-//   expect(calendar2SetDate.startAtDayOfWeek).toBeLessThanOrEqual(6);
-//   expect(calendar2SetDate.firstWeek.length).toEqual(7);
-//   expect(calendar2SetDate.fullOtherWeeks.length).toEqual(
-//     calendar2SetDate.lastDayOfMonth - (7 - calendar2SetDate.startAtDayOfWeek)
-//   );
-//   expect(calendar2SetDate.splitedOtherWeeks.length).toBeGreaterThanOrEqual(
-//     Math.round(calendar2SetDate.fullOtherWeeks.length / 7)
-//   );
-//   expect(
-//     calendar2SetDate.splitedOtherWeeks[
-//       calendar2SetDate.splitedOtherWeeks.length - 1
-//     ].length
-//   ).toEqual(7);
-//   calendar2SetDate = calendar2SetDate.goToPreviousMonth();
-// });
