@@ -1,9 +1,11 @@
 {
   "name": "calendar-javascript-agnostic-lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Calendar javascript lib to build agnostic interfaces",
   "main": "calendar.v2.js",
   "scripts": {
+    "build": "tsc",
+    "prepack": "npm run build",
     "test": "vitest",
     "test:coverage": "vitest --coverage"
   },
