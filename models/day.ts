@@ -8,12 +8,14 @@ import { weekdaysAbreviations } from "../constants/weekdays-abreviations";
 export class Day {
   value: number;
   month: number;
+  weekdayNumber: number;
   weekday: string;
   abbreviation: string;
 
   constructor(input: { value: number; month: number; weekday: number }) {
     this.value = input.value;
     this.month = input.month;
+    this.weekdayNumber = input.weekday;
     this.weekday = weekdays[input.weekday];
     this.abbreviation = weekdaysAbreviations[input.weekday];
   }

@@ -2,11 +2,12 @@ import { Day } from "./models/day";
 
 export class Calendar2 {
   currentMonth!: number;
-  startAtDayOfWeek!: number;
-  firstWeek: Day[] = [];
-  lastDayOfMonth!: number;
-  fullOtherWeeks: Day[] = [];
-  splitedOtherWeeks: Array<Day[]> = [];
+  weeks: Array<Day[]> = [];
+  private startAtDayOfWeek!: number;
+  private firstWeek: Day[] = [];
+  private lastDayOfMonth!: number;
+  private fullOtherWeeks: Day[] = [];
+  private splitedOtherWeeks: Array<Day[]> = [];
 
   constructor(input?: { day?: number; month: number; year?: number }) {
     const newDate: Date | any = new Date();
@@ -28,7 +29,7 @@ export class Calendar2 {
         this.firstWeek.unshift(
           new Day({
             value: lastDayOfLastMonth,
-            weekday: i,
+            weekday: i - 1,
             month: this.currentMonth - 1,
           })
         );
@@ -56,7 +57,7 @@ export class Calendar2 {
     let dayOfWeek = 0;
     for (let i = lastDayOfFistWeek.value + 1; i <= this.lastDayOfMonth; i++) {
       this.fullOtherWeeks.push(
-        new Day({ value: i, weekday: dayOfWeek % 6, month: this.currentMonth })
+        new Day({ value: i, weekday: dayOfWeek % 7, month: this.currentMonth })
       );
       dayOfWeek++;
     }
@@ -80,13 +81,18 @@ export class Calendar2 {
           new Day({
             month: this.currentMonth + 1,
             value: i,
-            weekday: dayOfWeek % 6,
+            weekday: dayOfWeek % 7,
           })
         );
         dayOfWeek++;
         lastWeekLength++;
       }
     }
+    // 12. The calendar should be a object with weeks
+    this.weeks.push(this.firstWeek);
+    this.splitedOtherWeeks.forEach((week) => {
+      this.weeks.push(week);
+    });
   }
 
   private get lastDayOfLastMonth(): number {

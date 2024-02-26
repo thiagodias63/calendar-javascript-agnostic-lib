@@ -1,3 +1,5 @@
+![Test](https://github.com/thiagodias63/calendar-javascript/actions/workflows/test.yml/badge.svg)
+
 ## Documentation
 
 ### Expected behaviors - BDD
@@ -23,3 +25,4 @@
     1. month: the month that day belongs to. In a number type;
     1. weekday: a string of the day on the week;
     1. abbreviation: a string of the day abbreviation on the week
+12. The calendar should be a object with weeks
