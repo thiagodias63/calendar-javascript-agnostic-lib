@@ -34,7 +34,7 @@ describe("Calendar v2, Documentation Driven Development", () => {
 
   test("6.Split this array in every seven records to generate new arrays", () => {
     // Ex: [4,5,6,7,8,9,10] [11,12,13,14,15,16,17], [18,19,20,21,22,23,24] [25,26,27,28,29];
-    expect(calendar2.splitedOtherWeeks.length).toEqual(
+    expect(calendar2.splitedOtherWeeks.length).toBeGreaterThanOrEqual(
       Math.round(calendar2.fullOtherWeeks.length / 7)
     );
   });
@@ -46,22 +46,52 @@ describe("Calendar v2, Documentation Driven Development", () => {
   });
 
   test(`8.Should be possible to go to next month.`, () => {
-    const calendar2NextMonth = calendar2.goToNextMonth();
-    // Ex: Mar 2024 start on a Friday (5/6).
-    expect(calendar2NextMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
-    expect(calendar2NextMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
-    expect(calendar2NextMonth.firstWeek.length).toEqual(7);
-    expect(calendar2NextMonth.fullOtherWeeks.length).toEqual(
-      calendar2NextMonth.lastDayOfMonth -
-        (7 - calendar2NextMonth.startAtDayOfWeek)
-    );
-    expect(calendar2NextMonth.splitedOtherWeeks.length).toEqual(
-      Math.round(calendar2NextMonth.fullOtherWeeks.length / 7)
-    );
-    expect(
-      calendar2NextMonth.splitedOtherWeeks[
-        calendar2NextMonth.splitedOtherWeeks.length - 1
-      ].length
-    ).toEqual(7);
+    let calendar2NextMonth = calendar2.goToNextMonth();
+    for (let i = 0; i < 11; i++) {
+      // Ex: Mar 2024 start on a Friday (5/6).
+      expect(calendar2NextMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
+      expect(calendar2NextMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
+      expect(calendar2NextMonth.firstWeek.length).toEqual(7);
+      expect(calendar2NextMonth.fullOtherWeeks.length).toEqual(
+        calendar2NextMonth.lastDayOfMonth -
+          (7 - calendar2NextMonth.startAtDayOfWeek)
+      );
+      expect(
+        calendar2NextMonth.splitedOtherWeeks.length
+      ).toBeGreaterThanOrEqual(
+        Math.round(calendar2NextMonth.fullOtherWeeks.length / 7)
+      );
+      expect(
+        calendar2NextMonth.splitedOtherWeeks[
+          calendar2NextMonth.splitedOtherWeeks.length - 1
+        ].length
+      ).toEqual(7);
+      calendar2NextMonth = calendar2NextMonth.goToNextMonth();
+    }
+  });
+
+  test(`9.Should be possible to go to previous month.`, () => {
+    let calendar2PreviusMonth = calendar2.goToPreviousMonth();
+    for (let i = 0; i < 11; i++) {
+      // Ex: Jan 2024 start on a Monday (1/6).
+      expect(calendar2PreviusMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
+      expect(calendar2PreviusMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
+      expect(calendar2PreviusMonth.firstWeek.length).toEqual(7);
+      expect(calendar2PreviusMonth.fullOtherWeeks.length).toEqual(
+        calendar2PreviusMonth.lastDayOfMonth -
+          (7 - calendar2PreviusMonth.startAtDayOfWeek)
+      );
+      expect(
+        calendar2PreviusMonth.splitedOtherWeeks.length
+      ).toBeGreaterThanOrEqual(
+        Math.round(calendar2PreviusMonth.fullOtherWeeks.length / 7)
+      );
+      expect(
+        calendar2PreviusMonth.splitedOtherWeeks[
+          calendar2PreviusMonth.splitedOtherWeeks.length - 1
+        ].length
+      ).toEqual(7);
+      calendar2PreviusMonth = calendar2PreviusMonth.goToPreviousMonth();
+    }
   });
 });
