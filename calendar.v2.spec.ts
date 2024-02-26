@@ -28,7 +28,7 @@ describe("Calendar v2, Documentation Driven Development", () => {
   test("5.Add a big array with the next days until the month its over", () => {
     // Ex: [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
     expect(calendar2.fullOtherWeeks.length).toEqual(
-      calendar2.lastDayOfMonth - calendar2.startAtDayOfWeek + 1
+      calendar2.lastDayOfMonth - (7 - calendar2.startAtDayOfWeek)
     );
   });
 
@@ -47,10 +47,21 @@ describe("Calendar v2, Documentation Driven Development", () => {
 
   test(`8.Should be possible to go to next month.`, () => {
     const calendar2NextMonth = calendar2.goToNextMonth();
-    // Ex: Mar 2024 start on a Thursday (4/6).
+    // Ex: Mar 2024 start on a Friday (5/6).
     expect(calendar2NextMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
     expect(calendar2NextMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
-    console.log(calendar2NextMonth.firstWeek);
-    console.log(calendar2NextMonth.splitedOtherWeeks);
+    expect(calendar2NextMonth.firstWeek.length).toEqual(7);
+    expect(calendar2NextMonth.fullOtherWeeks.length).toEqual(
+      calendar2NextMonth.lastDayOfMonth -
+        (7 - calendar2NextMonth.startAtDayOfWeek)
+    );
+    expect(calendar2NextMonth.splitedOtherWeeks.length).toEqual(
+      Math.round(calendar2NextMonth.fullOtherWeeks.length / 7)
+    );
+    expect(
+      calendar2NextMonth.splitedOtherWeeks[
+        calendar2NextMonth.splitedOtherWeeks.length - 1
+      ].length
+    ).toEqual(7);
   });
 });
