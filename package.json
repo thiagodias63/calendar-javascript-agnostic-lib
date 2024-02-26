@@ -1,6 +1,6 @@
 {
   "name": "calendar-javascript-agnostic-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Calendar javascript lib to build agnostic interfaces",
   "main": "calendar.v2.js",
   "scripts": {
