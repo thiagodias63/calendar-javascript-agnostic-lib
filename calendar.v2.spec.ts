@@ -44,4 +44,13 @@ describe("Calendar v2, Documentation Driven Development", () => {
       calendar2.splitedOtherWeeks[calendar2.splitedOtherWeeks.length - 1].length
     ).toEqual(7);
   });
+
+  test(`8.Should be possible to go to next month.`, () => {
+    const calendar2NextMonth = calendar2.goToNextMonth();
+    // Ex: Mar 2024 start on a Thursday (4/6).
+    expect(calendar2NextMonth.startAtDayOfWeek).toBeGreaterThanOrEqual(0);
+    expect(calendar2NextMonth.startAtDayOfWeek).toBeLessThanOrEqual(6);
+    console.log(calendar2NextMonth.firstWeek);
+    console.log(calendar2NextMonth.splitedOtherWeeks);
+  });
 });

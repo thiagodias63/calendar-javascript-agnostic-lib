@@ -6,8 +6,10 @@ export class Calendar2 {
   fullOtherWeeks: number[] = [];
   splitedOtherWeeks: Array<number[]> = [];
 
-  constructor() {
+  constructor(input?: { month: number }) {
     const newDate: Date | any = new Date();
+    // 8.Should be possible to go to next month
+    if (input?.month) newDate.setMonth(input.month);
     // 1.Start with current month equal to the actual current month
     this.currentMonth = newDate.getMonth();
     // 2.The current month ever start on day 1. But what day in the week is the day 1 of this month?
@@ -75,5 +77,11 @@ export class Calendar2 {
   private fetchLastDayOfMonth(fullYear: number, month: number): number {
     const partialNewDate = new Date(fullYear, month + 1, 0);
     return Number(partialNewDate.toLocaleDateString().split("/")[0]);
+  }
+
+  // 8. Should be possible to go to next month
+  public goToNextMonth(): Calendar2 {
+    const nextMonth = this.currentMonth <= 11 ? this.currentMonth + 1 : 1;
+    return new Calendar2({ month: nextMonth });
   }
 }
