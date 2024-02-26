@@ -65,7 +65,7 @@ export class Calendar2 {
     let i = 0;
     for (
       let start = this.fullOtherWeeks[0].value;
-      start < this.lastDayOfMonth;
+      start < this.lastDayOfMonth + 1;
       start += 7
     ) {
       this.splitedOtherWeeks.push(this.fullOtherWeeks.slice(i, i + 7));
