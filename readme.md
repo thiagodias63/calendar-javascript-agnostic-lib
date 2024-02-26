@@ -1,4 +1,4 @@
-![Test](https://github.com/thiagodias63/calendar-javascript/actions/workflows/test.yml/badge.svg)
+[![Test CI](https://github.com/thiagodias63/calendar-javascript-agnostic-lib/actions/workflows/test.yml/badge.svg)](https://github.com/thiagodias63/calendar-javascript-agnostic-lib/actions/workflows/test.yml)
 
 ## Documentation
 
