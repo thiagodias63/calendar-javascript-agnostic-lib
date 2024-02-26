@@ -8,6 +8,6 @@
     "outDir": "./dist", // diretório de saída do código transpilado
     "strict": true
   },
-  "include": ["**/*.ts", "src/**/*.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*.spec.ts"]
 }
