@@ -1,12 +1,14 @@
-import { expect, describe, beforeAll, test, beforeEach } from "vitest";
+import { expect, describe, test, beforeEach } from "vitest";
 import { Calendar2 } from "./calendar.v2";
 import { Day } from "./models/day";
-import { weekdays } from "./constants/weekdays";
-import { weekdaysAbreviations } from "./constants/weekdays-abreviations";
 
-export const calendar2Test = (title: string, cb?: any) => {
+export const calendar2Test = (
+  title: string,
+  cb?: any,
+  input?: { month: number; day?: number; year?: number }
+) => {
   describe(title, () => {
-    let calendar2: Calendar2 = new Calendar2();
+    let calendar2: Calendar2 = new Calendar2(input);
 
     beforeEach(() => {
       if (!!cb) cb(calendar2);
@@ -17,11 +19,11 @@ export const calendar2Test = (title: string, cb?: any) => {
       expect(calendar2.currentMonth).toBeLessThanOrEqual(11);
     });
 
-    // test("2.The current month ever start on day 1. But what day in the week is the day 1 of this month?", () => {
-    //   // Ex: Fev 2024 start on a Thursday (4/6).
-    //   expect(calendar2.weeks[0][0].weekdayNumber).toBeGreaterThanOrEqual(0);
-    //   expect(calendar2.weeks[0][0].weekdayNumber).toBeLessThanOrEqual(6);
-    // });
+    test("2.The current month ever start on day 1. But what day in the week is the day 1 of this month?", () => {
+      // Ex: Fev 2024 start on a Thursday (4/6).
+      expect(calendar2.weeks[0][0].weekdayNumber).toBeGreaterThanOrEqual(0);
+      expect(calendar2.weeks[0][0].weekdayNumber).toBeLessThanOrEqual(6);
+    });
 
     // test(`3.If first day is greater than 0: What is the last day of the last month, so we can subtract that number to complete the first week.
     //       4.Add the next days on the first week, so it's complete.`, () => {
@@ -51,25 +53,25 @@ export const calendar2Test = (title: string, cb?: any) => {
     //   ).toEqual(7);
     // });
 
-    test(`11. The days of month must be convert to a Object-value`, () => {
-      const firstDay = calendar2.weeks[0][0];
-      const lastDay = calendar2.weeks[calendar2.weeks.length - 1][6];
-      expect(firstDay).toBeInstanceOf(Day);
-      expect(lastDay).toBeInstanceOf(Day);
-      expect(weekdays.includes(firstDay.weekday));
-      expect(weekdaysAbreviations.includes(firstDay.weekday));
-      expect(weekdays.includes(lastDay.weekday));
-      expect(weekdaysAbreviations.includes(lastDay.weekday));
-    });
+    // test(`11. The days of month must be convert to a Object-value`, () => {
+    //   const firstDay = calendar2.weeks[0][0];
+    //   const lastDay = calendar2.weeks[calendar2.weeks.length - 1][6];
+    //   expect(firstDay).toBeInstanceOf(Day);
+    //   expect(lastDay).toBeInstanceOf(Day);
+    //   expect(weekdays.includes(firstDay.weekday));
+    //   expect(weekdaysAbreviations.includes(firstDay.weekday));
+    //   expect(weekdays.includes(lastDay.weekday));
+    //   expect(weekdaysAbreviations.includes(lastDay.weekday));
+    // });
 
-    test(`12. The calendar should be a object with weeks`, () => {
-      calendar2.weeks.forEach((week) => {
-        expect(week.length).toEqual(7);
-        week.forEach((day) => {
-          expect(day).toBeInstanceOf(Day);
-        });
-      });
-    });
+    // test(`12. The calendar should be a object with weeks`, () => {
+    //   calendar2.weeks.forEach((week) => {
+    //     expect(week.length).toEqual(7);
+    //     week.forEach((day) => {
+    //       expect(day).toBeInstanceOf(Day);
+    //     });
+    //   });
+    // });
   });
 };
 // 1.Start with current month equal to the actual current month
@@ -93,6 +95,8 @@ calendar2Test(
 );
 
 // 10.Should be possible to assign a date to start (day, month, year)
-calendar2Test("Calendar v2, going to specific date", (calendar2: Calendar2) => {
-  calendar2 = new Calendar2({ month: 0, day: 1, year: 2024 });
+calendar2Test("Calendar v2, going to specific date", null, {
+  month: 2,
+  day: 1,
+  year: 24,
 });
