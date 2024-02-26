@@ -18,3 +18,8 @@
 8. Should be possible to go to next month
 9. Should be possible to go to previous month
 10. Should be possible to assign a date to start (day, month, year)
+11. The days of month must be convert to a Object-value type with the follow properties
+    1. value: the day itself. In a number type
+    1. month: the month that day belongs to. In a number type;
+    1. weekday: a string of the day on the week;
+    1. abbreviation: a string of the day abbreviation on the week

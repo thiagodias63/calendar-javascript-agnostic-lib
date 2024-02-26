@@ -1,10 +1,12 @@
+import { Day } from "./models/day";
+
 export class Calendar2 {
   currentMonth!: number;
   startAtDayOfWeek!: number;
-  firstWeek: number[] = [];
+  firstWeek: Day[] = [];
   lastDayOfMonth!: number;
-  fullOtherWeeks: number[] = [];
-  splitedOtherWeeks: Array<number[]> = [];
+  fullOtherWeeks: Day[] = [];
+  splitedOtherWeeks: Array<Day[]> = [];
 
   constructor(input?: { day?: number; month: number; year?: number }) {
     const newDate: Date | any = new Date();
@@ -23,14 +25,26 @@ export class Calendar2 {
     let lastDayOfLastMonth = this.lastDayOfLastMonth;
     if (this.startAtDayOfWeek > 0) {
       for (let i = this.startAtDayOfWeek; i > 0; i--) {
-        this.firstWeek.unshift(lastDayOfLastMonth);
+        this.firstWeek.unshift(
+          new Day({
+            value: lastDayOfLastMonth,
+            weekday: i,
+            month: this.currentMonth - 1,
+          })
+        );
         lastDayOfLastMonth--;
       }
     }
     // 4.Add the next days on the first week, so it's complete.
     let firstDayOfMonth = 1;
     for (let i = this.startAtDayOfWeek; i < 7; i++) {
-      this.firstWeek.push(firstDayOfMonth);
+      this.firstWeek.push(
+        new Day({
+          value: firstDayOfMonth,
+          month: this.currentMonth,
+          weekday: i,
+        })
+      );
       firstDayOfMonth++;
     }
     // 5.Add a big array with the next days until the month its over
@@ -39,13 +53,17 @@ export class Calendar2 {
       newDate.getFullYear(),
       newDate.getMonth()
     );
-    for (let i = lastDayOfFistWeek + 1; i <= this.lastDayOfMonth; i++) {
-      this.fullOtherWeeks.push(i);
+    let dayOfWeek = 0;
+    for (let i = lastDayOfFistWeek.value + 1; i <= this.lastDayOfMonth; i++) {
+      this.fullOtherWeeks.push(
+        new Day({ value: i, weekday: dayOfWeek % 6, month: this.currentMonth })
+      );
+      dayOfWeek++;
     }
     // 6.Split this array in every seven records to generate new arrays
     let i = 0;
     for (
-      let start = this.fullOtherWeeks[0];
+      let start = this.fullOtherWeeks[0].value;
       start < this.lastDayOfMonth;
       start += 7
     ) {
@@ -58,7 +76,14 @@ export class Calendar2 {
     if (lastWeek.length < 7) {
       let lastWeekLength = lastWeek.length;
       for (let i = 1; lastWeekLength < 7; i++) {
-        lastWeek.push(i);
+        lastWeek.push(
+          new Day({
+            month: this.currentMonth + 1,
+            value: i,
+            weekday: dayOfWeek % 6,
+          })
+        );
+        dayOfWeek++;
         lastWeekLength++;
       }
     }
