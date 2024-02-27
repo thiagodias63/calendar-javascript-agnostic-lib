@@ -80,7 +80,7 @@ calendar2Test("Calendar v2, starts with the current date");
 // 8.Should be possible to go to next month.
 calendar2Test("Calendar v2, going to next month", (calendar2: Calendar2) => {
   for (let i = 0; i < 14; i++) {
-    calendar2 = calendar2.goToNextMonth();
+    calendar2.goToNextMonth();
   }
 });
 
@@ -89,7 +89,7 @@ calendar2Test(
   "Calendar v2, going to previous month",
   (calendar2: Calendar2) => {
     for (let i = 0; i < 14; i++) {
-      calendar2 = calendar2.goToPreviousMonth();
+      calendar2.goToPreviousMonth();
     }
   }
 );
