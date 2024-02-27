@@ -10,6 +10,14 @@ export class Calendar2 {
   private splitedOtherWeeks: Array<Day[]> = [];
 
   constructor(input?: { day?: number; month: number; year?: number }) {
+    this.createCalendar2(input);
+  }
+
+  private createCalendar2(input?: {
+    day?: number;
+    month: number;
+    year?: number;
+  }) {
     const newDate: Date | any = new Date();
     // 8.Should be possible to go to next month
     if (input && typeof input.month === "number" && input.month >= 0)
@@ -30,7 +38,7 @@ export class Calendar2 {
           new Day({
             value: lastDayOfLastMonth,
             weekday: i - 1,
-            month: this.currentMonth - 1,
+            month: this.currentMonth > 0 ? this.currentMonth - 1 : 11,
           })
         );
         lastDayOfLastMonth--;
@@ -79,7 +87,7 @@ export class Calendar2 {
       for (let i = 1; lastWeekLength < 7; i++) {
         lastWeek.push(
           new Day({
-            month: this.currentMonth + 1,
+            month: this.currentMonth < 12 ? this.currentMonth + 1 : 0,
             value: i,
             weekday: dayOfWeek % 7,
           })
@@ -115,14 +123,14 @@ export class Calendar2 {
   }
 
   // 8. Should be possible to go to next month
-  public goToNextMonth(): Calendar2 {
+  public goToNextMonth(): void {
     const nextMonth = this.currentMonth < 11 ? this.currentMonth + 1 : 0;
-    return new Calendar2({ month: nextMonth });
+    this.createCalendar2({ month: nextMonth });
   }
 
   // 9. Should be possible to go to previous month
-  public goToPreviousMonth(): Calendar2 {
+  public goToPreviousMonth(): void {
     const previousMonth = this.currentMonth > 0 ? this.currentMonth - 1 : 11;
-    return new Calendar2({ month: previousMonth });
+    this.createCalendar2({ month: previousMonth });
   }
 }
