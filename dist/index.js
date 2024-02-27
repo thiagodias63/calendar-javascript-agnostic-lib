@@ -58,12 +58,15 @@ var Day = class {
 };
 
 // src/calendar.v2.ts
-var Calendar2 = class _Calendar2 {
+var Calendar2 = class {
   constructor(input) {
     this.weeks = [];
     this.firstWeek = [];
     this.fullOtherWeeks = [];
     this.splitedOtherWeeks = [];
+    this.createCalendar2(input);
+  }
+  createCalendar2(input) {
     const newDate = /* @__PURE__ */ new Date();
     if (input && typeof input.month === "number" && input.month >= 0)
       newDate.setMonth(input.month);
@@ -81,7 +84,7 @@ var Calendar2 = class _Calendar2 {
           new Day({
             value: lastDayOfLastMonth,
             weekday: i2 - 1,
-            month: this.currentMonth - 1
+            month: this.currentMonth > 0 ? this.currentMonth - 1 : 11
           })
         );
         lastDayOfLastMonth--;
@@ -121,7 +124,7 @@ var Calendar2 = class _Calendar2 {
       for (let i2 = 1; lastWeekLength < 7; i2++) {
         lastWeek.push(
           new Day({
-            month: this.currentMonth + 1,
+            month: this.currentMonth < 12 ? this.currentMonth + 1 : 0,
             value: i2,
             weekday: dayOfWeek % 7
           })
@@ -146,21 +149,21 @@ var Calendar2 = class _Calendar2 {
     }
     partialNewDate.setMonth(partialLastMonth + 1);
     partialNewDate.setDate(0);
-    return Number(partialNewDate.toLocaleDateString().split("/")[0]);
+    return Number(partialNewDate.getDate());
   }
   fetchLastDayOfMonth(fullYear, month) {
     const partialNewDate = new Date(fullYear, month + 1, 0);
-    return Number(partialNewDate.toLocaleDateString().split("/")[0]);
+    return Number(partialNewDate.getDate());
   }
   // 8. Should be possible to go to next month
   goToNextMonth() {
     const nextMonth = this.currentMonth < 11 ? this.currentMonth + 1 : 0;
-    return new _Calendar2({ month: nextMonth });
+    this.createCalendar2({ month: nextMonth });
   }
   // 9. Should be possible to go to previous month
   goToPreviousMonth() {
     const previousMonth = this.currentMonth > 0 ? this.currentMonth - 1 : 11;
-    return new _Calendar2({ month: previousMonth });
+    this.createCalendar2({ month: previousMonth });
   }
 };
 // Annotate the CommonJS export names for ESM import in node:
