@@ -13,11 +13,19 @@ export class Calendar2 {
     this.createCalendar2(input);
   }
 
+  private resetCalendar2(): void {
+    this.firstWeek = [];
+    this.fullOtherWeeks = [];
+    this.splitedOtherWeeks = [];
+    this.weeks = [];
+  }
+
   private createCalendar2(input?: {
     day?: number;
     month: number;
     year?: number;
-  }) {
+  }): void {
+    this.resetCalendar2();
     const newDate: Date | any = new Date();
     // 8.Should be possible to go to next month
     if (input && typeof input.month === "number" && input.month >= 0)
