@@ -66,7 +66,14 @@ var Calendar2 = class {
     this.splitedOtherWeeks = [];
     this.createCalendar2(input);
   }
+  resetCalendar2() {
+    this.firstWeek = [];
+    this.fullOtherWeeks = [];
+    this.splitedOtherWeeks = [];
+    this.weeks = [];
+  }
   createCalendar2(input) {
+    this.resetCalendar2();
     const newDate = /* @__PURE__ */ new Date();
     if (input && typeof input.month === "number" && input.month >= 0)
       newDate.setMonth(input.month);
